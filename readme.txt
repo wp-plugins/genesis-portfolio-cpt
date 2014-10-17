@@ -12,7 +12,7 @@ Add a Portfolio custom post type and display the portfolio items in any post or 
 This plugin creates a portfolio custom post type, portfolio items can then be displayed using the [portfolio] shortcode, which accepts parameters of amount, orderby, order and category. Alternatively, if using a portfolio theme from https://llamapress.com you can use the portfolio page template.
 
 == Installation ==
-Upload
+Upload 
 
 1/ Download the latest tagged archive (choose the \"zip\" option).
 2/ Go to the Plugins -> Add New screen and click the Upload tab.
