@@ -18,7 +18,7 @@ Upload
 2/ Go to the Plugins -> Add New screen and click the Upload tab.
 3/ Upload the zipped archive directly.
 4/ Go to the Plugins screen and click Activate.
-
+ 
 Manual
 
 1/ Download the latest tagged archive (choose the \"zip\" option).
