@@ -4,7 +4,7 @@
  * Plugin URI: https://llama-press.com
  * Description: Use this plugin to add a Portfolio CPT to be used with the "portfolio" sortcode or a LlamaPress portfolio page template,
  *              this plugin can only be used with the Genesis framework.
- * Version: 1.0
+ * Version: 1.1
  * Author: LlamaPress
  * Author URI: https://llama-press.com
  * License: GPL2
@@ -25,9 +25,6 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
-//include plugins
-include( plugin_dir_path( __FILE__ ) . 'inc/plugins/plugins.php');
 
 /**
  * This class creates a custom post type lp-portfolio, this post type allows the user to create 
@@ -53,9 +50,6 @@ class lpPortfolio {
         
         /** Creates portfolio featured image for archive grid */
         add_image_size( 'lp-portfolio', 330, 230, TRUE );
-        
-        /** Creates shortcode */
-        add_shortcode( 'portfolio', array( $this, 'portfolio_shortcode' ) );
         
         /* create text domain */
         load_plugin_textdomain( 'lp', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
@@ -159,105 +153,6 @@ class lpPortfolio {
             )
         );
     }
-    
-    /**
-    * Creates shortcode to display portfolio items on any post or page.
-    * 
-    * @since 1.0
-    * @link https://llama-press.com
-    */
-    public function portfolio_shortcode( $atts ) {
-            
-          $atts = shortcode_atts( array(
-                    'amount' => '',
-                    'orderby' => '',
-                    'order' => '',
-                    'category' => ''
-            ), $atts );
-            $amount = $atts['amount'];
-            $orderby = $atts['orderby'];
-            $cat = $atts['category'];
-            if( $orderby == "" ) $orderby = 'post_date';
-            $order = $atts['order'];
-            if( $order == "" ) $order = 'DESC';
-            
-            if( $amount != '' ){
-                $args = array(
-                    'post_type' => 'lp-portfolio',
-                    'orderby'       => $orderby,
-                    'order'         => $order,
-                    'posts_per_page' => $amount,
-                    
-                );
-            }
-            else{
-                $args = array(
-                    'post_type' => 'lp-portfolio',
-                    'orderby'       => $orderby,
-                    'order'         => $order,
-
-                );
-            }
-            
-            if( $cat != "" ) $args['lp-portfolio-cat'] = $cat;
-            
-             $id = $post->ID;
-             $layout = genesis_site_layout();
-             if($layout == "full-width-content"){
-                 $classMain = "one-fourth";
-                 $num = 4;
-             }
-             else{
-                 $classMain = "one-third";
-                 $caption_push = " caption_push ";
-                 $num = 3;
-             }
-             $loop = new WP_Query( $args );
-             if( $loop->have_posts() ){
-                 //loop through portfolio items
-                while( $loop->have_posts() ): $loop->the_post();
-                    if( 0 == $loop->current_post || 0 == $loop->current_post % $num )
-                    $class = $classMain . ' first';
-                    $excerpt = get_the_excerpt();
-                    if($excerpt != ""){
-                        $text = substr($excerpt, 0, 80);
-                    }
-                    else{
-                        if( get_the_content()){
-                            $text = substr(get_the_content, 0, 80);
-                        }
-                        else{
-                            $text = "";
-                        }
-                    }
-                    $content .= "<div class='lp-grid-item $class'>";
-                        $content .= "<div class='lp-portfolio-item'>";
-                                    if( has_post_thumbnail(  ) ){
-                                        $content .= get_the_post_thumbnail(get_the_id(), 'lp-portfolio');
-                                    }
-                                    else{
-                                        $content .= "<img class='attachment-lp-portfolio wp-post-image' src='" . plugins_url( 'img/grid-bg.png' , __FILE__ ) . "' />";
-                                    }
-                            $content .= "<strong><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></strong>";
-                            $content .= "<div class='lp-caption'>";
-                                $content .= "<div class='caption_info$caption_push'>";
-                                    $content .= "<p class='hidden-md'>" . $text . "</p>";
-                                    $content .= "<a class='lp-btn lp-btn-white' href='". get_the_permalink() ."'>Read More&nbsp;&nbsp;<i class='fa fa-arrow-circle-right'></i></a>";
-                                $content .= "</div>";
-                            $content .= "</div>";
-                        $content .= "</div>";
-                    $content .= "</div>";
-                    $class = $classMain;
-                endwhile;
-                 
-                $content .= "<div class='clearfix'></div>";
-             } 
-             wp_reset_postdata();
-              
-             
-             if( $content )
-             return $content;
-    } 
 
     /**
     * Loads the correct template.
