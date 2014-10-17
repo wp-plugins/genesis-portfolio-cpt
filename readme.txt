@@ -36,7 +36,7 @@ Yes, in order to use this plugin your website will need to be running on the Gen
 
 == Changelog ==
 = 1.1 =
-* Removed portfolio shortcode. We have decided to remove this shortcode to keep the plugin light, your theme should provide a way to display the portfolio items or through a separate plugin. For anyone who has used the shortcode and would like to keep using it, you can download version 0.1 of the plugin at https://llamapress.com/genesis-porfolio-cpt-shortcode.zip, please note we will not be maintaining version 0.1.
+* Removed portfolio shortcode. We have decided to remove this shortcode to keep the plugin light, your theme should provide a way to display the portfolio items or through a separate plugin. For anyone who has used the shortcode and would like to keep using it, you can download version 1.0 of the plugin at https://llamapress.com/genesis-porfolio-cpt-shortcode.zip, please note we will not be maintaining version 1.0.
  
 = 1.0 =
 * Initial release.
